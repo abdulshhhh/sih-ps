@@ -3,6 +3,11 @@ const fs = require('fs');
 const path = require('path');
 const os = require('os');
 
+if (process.env.VERCEL || process.env.CI) {
+  console.log('Vercel/CI environment detected: skipping local Python environment setup.');
+  process.exit(0);
+}
+
 const venvDir = path.join(process.cwd(), 'venv');
 const isWindows = os.platform() === 'win32';
 // Fallback to python if python3 is not available (common on Windows)
